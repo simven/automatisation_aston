@@ -1,0 +1,15 @@
+---
+- hosts: simon
+  become: true
+  tasks:
+    - name: install of apache2
+      apt:
+        name:
+          - apache2
+        update_cache: yes
+    - name: copy file
+      copy:
+        src: html/index.html
+        dest: /var/www
+    - name: start apache2 service
+      command: systemclt start apache2

@@ -1,5 +1,5 @@
 ---
-- hosts: ihab
+- hosts: simon
   become: true
   tasks:
     - name: install of nodejs
