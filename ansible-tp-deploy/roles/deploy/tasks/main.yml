@@ -30,8 +30,6 @@
        - vote
        - worker
        - result
-       - redis-check
-       - postgres-check
   
   - name: delete folder
     file:

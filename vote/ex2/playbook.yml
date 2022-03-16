@@ -1,0 +1,38 @@
+---
+- hosts: ihab
+  become: true
+  tasks:
+    - name: install of git
+      apt:
+        name:
+          - git
+        update_cache: yes
+    - name: install of docker
+      apt:
+        name:
+          - docker
+        update_cache: yes
+      notify: start docker service
+    - name: copy Dockerfile
+      copy:
+        src: ./../Dockerfile
+        dest: /root
+        owner: root
+        group: root
+        mode: '0644'
+      notify: build container image    
+
+
+  handlers:
+    - name: start docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+    - name: build container image
+      docker_image:
+        name: democontainer:v1.0
+        build:
+          path: /root/demo-dockerfile
+          source: build
+        state: present
